@@ -26,4 +26,6 @@ export default async function BubbleSort(
       });
     }
   }
+
+  dispatch({ type: ActionTypes.sortingInProgress, payload: false });
 }
