@@ -1,5 +1,4 @@
 import BubbleSort from "../shared/helpers/BubbleSort";
-import { mergeSort } from "../shared/helpers/MergeSort";
 import {
   ActionTypes,
   ReducerAction,
@@ -32,8 +31,6 @@ function Navbar({ dispatch, state, newArray }: NavbarProps): JSX.Element {
         state.sortedArray,
         dispatch
       );
-    else if (state.selectedSort === "merge")
-      mergeSort([7, 2, 6, 9, 3, 5, 1, 8], dispatch);
   }
 
   return (
