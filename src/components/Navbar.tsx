@@ -1,4 +1,5 @@
 import BubbleSort from "../shared/helpers/BubbleSort";
+import { mergeSort } from "../shared/helpers/MergeSort";
 import {
   ActionTypes,
   ReducerAction,
@@ -24,17 +25,25 @@ function Navbar({ dispatch, state, newArray }: NavbarProps): JSX.Element {
   function startSorting() {
     if (state.sortingInProgress) return;
     dispatch({ type: ActionTypes.sortingInProgress, payload: true });
-    BubbleSort(state.sortingSpeed, state.sortingElements, dispatch);
+    if (state.selectedSort === "bubble")
+      BubbleSort(
+        state.sortingSpeed,
+        state.sortingElements,
+        state.sortedArray,
+        dispatch
+      );
+    else if (state.selectedSort === "merge")
+      mergeSort([7, 2, 6, 9, 3, 5, 1, 8], dispatch);
   }
 
   return (
-    <nav className="w-full p-5 flex flex-row text-[#3348d4]">
+    <nav className="w-full p-5 flex flex-row items-center text-[#3348d4] bg-black">
       <div className="flex flex-row w-6/12 gap-5 justify-around">
         <SortTypeButton state={state} onClick={() => SelectSortType("bubble")}>
           Bubble Sort
         </SortTypeButton>
-        <SortTypeButton state={state} onClick={() => SelectSortType("quick")}>
-          Quick Sort
+        <SortTypeButton state={state} onClick={() => SelectSortType("merge")}>
+          Merge Sort
         </SortTypeButton>
         <SortTypeButton
           state={state}
@@ -75,7 +84,7 @@ function Navbar({ dispatch, state, newArray }: NavbarProps): JSX.Element {
               value={state.arraySize}
               type="range"
               min="7"
-              max="50"
+              max="150"
             />
             <p className="ml-5">Largest</p>
           </div>
@@ -87,7 +96,7 @@ function Navbar({ dispatch, state, newArray }: NavbarProps): JSX.Element {
             <input
               type="range"
               min="10"
-              max="50"
+              max="2000"
               value={state.sortingSpeed}
               onChange={(e) => {
                 dispatch({

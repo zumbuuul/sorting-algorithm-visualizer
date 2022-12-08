@@ -12,6 +12,9 @@ const initialArgs = {
   sortingElements: [],
   selectedSort: "bubble",
   sortingInProgress: false,
+  currentActiveElement: [-1],
+  comparedElement: false,
+  sortedArray: [],
 } as ReducerState;
 
 function App() {
@@ -43,12 +46,24 @@ function App() {
       ></Navbar>
 
       <div className="flex gap-2 w-full h-[100vh] justify-center items-center">
-        <div className="flex gap-2">
+        <div className="flex gap-[1px]">
           {state.sortingElements.map((element, idx) => (
             <SingleSortingElementWidget
               element={element}
               key={idx}
+              idx={idx}
+              arraySize={state.arraySize}
+              currentActiveElement={state.currentActiveElement}
+              comparedElement={state.comparedElement}
             ></SingleSortingElementWidget>
+          ))}
+          {[...state.sortedArray].reverse().map((element, idx) => (
+            <SingleSortingElementWidget
+              element={element}
+              type={true}
+              key={idx}
+              arraySize={state.arraySize}
+            />
           ))}
         </div>
       </div>

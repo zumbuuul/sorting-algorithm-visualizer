@@ -35,6 +35,27 @@ export default function reducer(state: ReducerState, action: ReducerAction) {
         };
       }
       break;
+    case ActionTypes.handleChangeCurrentActiveElement:
+      {
+        return {
+          ...state,
+          currentActiveElement: action.payload,
+        };
+      }
+      break;
+    case ActionTypes.handleChangeComparedElement:
+      {
+        return {
+          ...state,
+          comparedElement: action.payload,
+        };
+      }
+      break;
+    case ActionTypes.handleChangeSortedArray:
+      {
+        return { ...state, sortedArray: action.payload };
+      }
+      break;
     default: {
       return state;
     }
